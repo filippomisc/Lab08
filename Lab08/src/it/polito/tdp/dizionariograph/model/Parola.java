@@ -36,7 +36,7 @@ public class Parola {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -49,10 +49,15 @@ public class Parola {
 		if (getClass() != obj.getClass())
 			return false;
 		Parola other = (Parola) obj;
-		if (id != other.id)
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
+
+
 	
 	
 
