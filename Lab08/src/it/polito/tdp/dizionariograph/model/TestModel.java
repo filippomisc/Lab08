@@ -8,6 +8,18 @@ public class TestModel {
 		
 		Model model = new Model();
 		
+		//test sull'input
+		
+		model.getListOfWordsWithLenght(4);
+		
+		
+		
+		
+		
+		
+		
+		
+		//test sul grafo 
 		model.createGraph(4);
 		System.out.println(String.format("**Grafo creato**\n"));
 		

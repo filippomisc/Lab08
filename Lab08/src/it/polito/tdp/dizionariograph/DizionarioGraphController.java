@@ -26,7 +26,7 @@ public class DizionarioGraphController {
     private TextField txtNumberOfCharacters; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtWords"
-    private TextField txtWords; // Value injected by FXMLLoader
+    private TextField txtWord; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnGeneraGrafo"
     private Button btnGeneraGrafo; // Value injected by FXMLLoader
@@ -48,6 +48,11 @@ public class DizionarioGraphController {
     @FXML
     void GeneraGrafo(ActionEvent event) {
 
+    	
+    	
+    	//PARTE RIGUARDANTE LUNGHEZZA PAROLA
+    	
+    	
     	String numLettereString = this.txtNumberOfCharacters.getText();
     	int numLettere;
 
@@ -66,12 +71,34 @@ public class DizionarioGraphController {
     	
     	/**
     	 * controllo dell'esistenza di parole con un determinata
-    	 * lunghezza 
+    	 * lunghezza (superfluo)
     	 */
-    	if(!m.exist()) {
-			this.txtResult.appendText(String.format("le parole con %d caratteri non sono prresenti nel DataBase\n", numLettere));
-			return;
-		}	
+//    	if(!m.existLenght()) {
+//			this.txtResult.appendText(String.format("le parole con %d caratteri non sono prresenti nel DataBase\n", numLettere));
+//			return;
+// 		}	
+    	
+    	
+    	//PARTE RIGUARDANTE PAROLA
+    	
+       	String parola = this.txtWord.getText();
+    	
+       	/**
+       	 * controlla che il numero di parole sia uguale alla
+       	 * lunghezza della parola inserita
+       	 */
+    	if(parola.length()!=numLettere) {
+    		this.txtResult.appendText("la parola inserita non corrisponde con la lunghezza prefissata");
+    		return;
+    	}
+    	
+    	/**
+    	 * controlla che la parola esista nel database
+    	 */
+    	if(!m.existWord(parola)) {
+    		this.txtResult.appendText(String.format("la parola %s non è presente nel DataBase\n", parola));
+    		return;
+    	}
     	
     	
 		this.m.createGraph(numLettere);
@@ -95,7 +122,7 @@ public class DizionarioGraphController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert txtNumberOfCharacters != null : "fx:id=\"txtNumberOfCharacters\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
-        assert txtWords != null : "fx:id=\"txtWords\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
+        assert txtWord != null : "fx:id=\"txtWords\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnGeneraGrafo != null : "fx:id=\"btnGeneraGrafo\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnTrovaVicini != null : "fx:id=\"btnTrovaVicini\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnTrovaGrafo != null : "fx:id=\"btnTrovaGrafo\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";

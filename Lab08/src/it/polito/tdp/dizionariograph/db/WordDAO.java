@@ -14,7 +14,7 @@ public class WordDAO {
 	 */
 	public List<String> getAllWordsFixedLength(int length) {
 
-		String sql = "SELECT nome FROM parola WHERE LENGTH(nome) = ?;";
+		String sql = "SELECT nome FROM parola WHERE LENGTH(nome) = ?";
 		List<String> parole = new ArrayList<String>();
 
 		try {
@@ -34,5 +34,31 @@ public class WordDAO {
 			throw new RuntimeException("Error Connection Database");
 		}
 	}
+
+	public List<String> getAllWordsFixedLengthAndConnected(String p, int length) {
+		
+		String sql = "SELECT nome FROM parola WHERE LENGTH(nome)= ?;";
+		List<String> parole = new ArrayList<String>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, length);
+			ResultSet res = st.executeQuery();
+
+			while (res.next()) {
+				parole.add(res.getString("nome"));
+			}
+
+			return parole;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error Connection Database");
+		}
+	}
+	
+	
+	
 
 }
