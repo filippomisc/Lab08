@@ -20,4 +20,9 @@ public class Model {
 		System.err.println("findMaxDegree -- TODO");
 		return -1;
 	}
+
+	public boolean exist() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -48,6 +48,33 @@ public class DizionarioGraphController {
     @FXML
     void GeneraGrafo(ActionEvent event) {
 
+    	String numLettereString = this.txtNumberOfCharacters.getText();
+    	int numLettere;
+
+    	/**
+    	 * controllo del formato int
+    	 */
+    	try {
+			
+			numLettere = Integer.parseInt(numLettereString);	
+			
+		}catch(NumberFormatException e){
+			this.txtResult.appendText("il formato inserito non è corretto\n");
+			return;
+			//break;
+		}
+    	
+    	/**
+    	 * controllo dell'esistenza di parole con un determinata
+    	 * lunghezza 
+    	 */
+    	if(!m.exist()) {
+			this.txtResult.appendText(String.format("le parole con %d caratteri non sono prresenti nel DataBase\n", numLettere));
+			return;
+		}	
+    	
+    	
+		this.m.createGraph(numLettere);
     }
 
     @FXML
