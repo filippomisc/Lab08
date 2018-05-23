@@ -48,6 +48,11 @@ public class DizionarioGraphController {
     @FXML
     void GeneraGrafo(ActionEvent event) {
 
+    	
+    	
+    	//PARTE RIGUARDANTE LUNGHEZZA PAROLA
+    	
+    	
     	String numLettereString = this.txtNumberOfCharacters.getText();
     	int numLettere;
 
@@ -68,10 +73,24 @@ public class DizionarioGraphController {
     	 * controllo dell'esistenza di parole con un determinata
     	 * lunghezza 
     	 */
-    	if(!m.exist()) {
+    	if(!m.existLenght()) {
 			this.txtResult.appendText(String.format("le parole con %d caratteri non sono prresenti nel DataBase\n", numLettere));
 			return;
 		}	
+    	
+    	
+    	
+    	
+    	//PARTE RIGUARDANTE PAROLA
+    	
+    	
+//    	TODO FARE LA PARTE SUL GETTEXT DI PAROLA
+    	
+    	
+    	if(!m.existWord()) {
+    		this.txtResult.appendText(String.format("la parola %s non è presente nel DataBase\n", parola));
+    		return;
+    	}
     	
     	
 		this.m.createGraph(numLettere);
