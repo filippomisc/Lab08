@@ -6,9 +6,9 @@ public class TestDAO {
 		
 		WordDAO wd = new WordDAO();
 		
-		System.out.println(wd.getAllWordsFixedLength(4));
+//		System.out.println(wd.getAllWordsFixedLength(4));
 		
-//		System.out.println(wd.getAllWordsFixedLengthAndConnected("ciao", 4));
+		System.out.println(wd.getAllWordsFixedLengthAndConnected("ciao", 4));
 	}
 
 }
