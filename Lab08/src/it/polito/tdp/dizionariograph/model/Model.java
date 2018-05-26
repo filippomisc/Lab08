@@ -4,8 +4,8 @@ import java.util.*;
 
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
-import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.SimpleWeightedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
 
 import it.polito.tdp.dizionariograph.db.WordDAO;
 
@@ -13,7 +13,7 @@ public class Model {
 	
 	WordDAO dao = new WordDAO();
 	
-	Graph<String, DefaultWeightedEdge> graph;
+	Graph<String, DefaultEdge> graph;
 	List<String> paroleConNCaratteri;
 	
 
@@ -21,17 +21,34 @@ public class Model {
 		//leggi la lista degli oggetti dal DB
 		this.paroleConNCaratteri = dao.getAllWordsFixedLength(numeroLettere);
 		
-		//creare il grafo SimpleWeightedGraph<>()
-		this.graph = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
+		//creare il grafo SimpleGraph<>()
+		this.graph = new SimpleGraph<>(DefaultEdge.class);
 		
 		
 		//aggiungere tutti i vertici
 		Graphs.addAllVertices(this.graph, this.paroleConNCaratteri);
+		System.out.println("vertici aggiunti: " + this.graph.vertexSet().size());
 		
-		//aggiungere gli archi pesati (bisogna creare una lista di archi
-		addEdges();
-
-		System.err.println("createGraph -- TODO");
+		
+		//aggiungere gli archi (bisogna creare una lista di parole simili/connesse***)
+		
+		//ciclo for per ogni parola del database(vertice)
+		for(String p : this.paroleConNCaratteri) {
+			
+			//***
+			List<String> paroleConnesse = dao.getAllWordsFixedLengthAndConnected(p, numeroLettere);
+			
+			//cilco for per le parole destinazione/connesse/simili
+			for(String pConn : paroleConnesse) {
+				
+				if(!p.equals(pConn)){
+				this.graph.addEdge(p, pConn);
+				}
+			}
+			}
+//			this.addEdges();
+		
+		System.err.println(String.format("grafo creato: %d vertici, %d grafi\n", graph.vertexSet().size(), graph.edgeSet().size()));
 	}
 
 	
@@ -41,12 +58,15 @@ public class Model {
 			
 			List<String> connessi = dao.getAllWordsFixedLengthAndConnected(p, p.length());
 			
-			for(ArtObjectsAndCount aoc : connessi) {
+			for(String pConn : connessi) {
 
-			ArtObject dest = new ArtObject(aoc.getArtObjectID(), null, null, null, 0, null, null, null, null, null, 0, null, null, null, null, null);
+//			ArtObject dest = new ArtObject(aoc.getArtObjectID(), null, null, null, 0, null, null, null, null, null, 0, null, null, null, null, null);
 
-			Graphs.addEdge(this.graph, ao, dest, aoc.getCount());
-//			System.out.format("(%d,%d) peso %d\n", ao.getId(), dest.getId(), aoc.getCount());
+			if(!pConn.equals(p)) {
+				this.graph.addEdge(p, pConn);
+			}
+			
+			System.out.format("(%d,%d)\n", p, pConn);
 			}
 		}		
 	}
@@ -85,7 +105,7 @@ public class Model {
 //			
 //		}
 //		return result;
-//	}
+//	} 
 
 	public List<String> getListOfWordsWithLenght(int numLettere) {
 		return dao.getAllWordsFixedLength(numLettere); 

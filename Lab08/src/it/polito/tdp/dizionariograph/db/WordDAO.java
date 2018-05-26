@@ -37,9 +37,7 @@ public class WordDAO {
 
 	public List<String> getAllWordsFixedLengthAndConnected(String p, int length) {
 		
-		String sql = "SELECT nome FROM parola \n" + 
-				"WHERE nome \n" + 
-				"LIKE nome=? AND LENGTH(nome) = ?";
+		String sql = "SELECT nome FROM parola WHERE nome LIKE ? AND LENGTH(nome) = ?";
 		
 		List<String> parole = new ArrayList<String>();
 
@@ -80,7 +78,9 @@ public class WordDAO {
 				while(res.next()) {
 					
 					String nome = res.getString("nome");
-					parole.add(nome);
+					
+					if(!parole.contains(nome))
+						parole.add(nome);
 				}
 
 				
