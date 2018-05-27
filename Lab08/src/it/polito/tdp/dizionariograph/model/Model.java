@@ -86,7 +86,6 @@ public class Model {
 			
 			for(String pConn : connessi) {
 
-//			ArtObject dest = new ArtObject(aoc.getArtObjectID(), null, null, null, 0, null, null, null, null, null, 0, null, null, null, null, null);
 
 			if(!pConn.equals(p)) {
 				this.graph.addEdge(p, pConn);
