@@ -142,7 +142,7 @@ public class DizionarioGraphController {
 	
 
 	String result =m.displayNeighbours(parola).toString();
-	this.txtResult.appendText("\nI i vicini sono:\n" + result + "\n");
+	this.txtResult.appendText("I i vicini sono:\n" + result + "\n");
 	
 	
     }
