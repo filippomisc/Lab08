@@ -18,11 +18,11 @@ public class TestModel {
 		model.createGraph(4);
 		System.out.println(String.format("**Grafo creato**\n"));
 		
-//		List<String> vicini = model.displayNeighbours("casa");
-//		System.out.println("Neighbours di casa: " + vicini + "\n");
-//		
-//		System.out.println("Cerco il vertice con grado massimo...");
-//		System.out.println(model.findMaxDegree());
+		List<String> vicini = model.displayNeighbours("casa");
+		System.out.println("Neighbours di casa: " + vicini + "\n");
+		
+		System.out.println("Cerco il vertice con grado massimo...");
+		System.out.println(model.findMaxDegree());
 	}
 
 }

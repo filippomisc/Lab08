@@ -34,8 +34,8 @@ public class DizionarioGraphController {
     @FXML // fx:id="btnTrovaVicini"
     private Button btnTrovaVicini; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btnTrovaGrafo"
-    private Button btnTrovaGrafo; // Value injected by FXMLLoader
+    @FXML // fx:id="btnTrovaGrado"
+    private Button btnTrovaGrado; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
@@ -48,7 +48,10 @@ public class DizionarioGraphController {
     @FXML
     void GeneraGrafo(ActionEvent event) {
 
+    	this.btnReset.setDisable(false);
     	
+    	this.btnTrovaVicini.setDisable(false);
+    	this.txtWord.setDisable(false);
     	
     	//PARTE RIGUARDANTE LUNGHEZZA PAROLA
     	
@@ -64,6 +67,7 @@ public class DizionarioGraphController {
 			numLettere = Integer.parseInt(numLettereString);	
 			
 		}catch(NumberFormatException e){
+			this.Reset(event);
 			this.txtResult.appendText("il formato inserito non è corretto\n");
 			return;
 			//break;
@@ -79,44 +83,68 @@ public class DizionarioGraphController {
 // 		}	
     	
     	
-    	//PARTE RIGUARDANTE PAROLA
-    	
-       	String parola = this.txtWord.getText();
-    	
-       	/**
-       	 * controlla che il numero di parole sia uguale alla
-       	 * lunghezza della parola inserita
-       	 */
-    	if(parola.length()!=numLettere) {
-    		this.txtResult.appendText("la parola inserita non corrisponde con la lunghezza prefissata");
-    		return;
-    	}
-    	
-    	/**
-    	 * controlla che la parola esista nel database
-    	 */
-    	if(!m.existWord(parola)) {
-    		this.txtResult.appendText(String.format("la parola %s non è presente nel DataBase\n", parola));
-    		return;
-    	}
-    	
+
     	
 		this.m.createGraph(numLettere);
+		this.txtResult.setText(String.format("il grafo è stato creato con %d vertici e %d archi.\n", m.getVertex(), m.getEdges()));
     }
 
     @FXML
     void Reset(ActionEvent event) {
-
+    	this.txtWord.clear();
+    	this.txtNumberOfCharacters.clear();
+    	this.txtResult.clear();
+    	
+    	
+    	this.btnReset.setDisable(true);
+    	this.btnTrovaGrado.setDisable(true);
+    	this.btnTrovaVicini.setDisable(true);
+    	this.txtWord.setDisable(true);
+//    	m.setGraph(null);
     }
 
     @FXML
-    void TrovaGrafo(ActionEvent event) {
+    void TrovaGrado(ActionEvent event) {
+    	
+    	String risultato = m.findMaxDegree();
+    	this.txtResult.appendText(risultato);
 
     }
 
     @FXML
     void TrovaVicini(ActionEvent event) {
+    	
+    	this.btnTrovaGrado.setDisable(false);
+    	
+    	
+    	//PARTE RIGUARDANTE PAROLA
+    	
+   	String parola = this.txtWord.getText();
+	
+   	/**
+   	 * controlla che il numero di parole sia uguale alla
+   	 * lunghezza della parola inserita
+   	 */
+	if(parola.length()!=m.getNumLettere()) {
+		this.btnTrovaGrado.setDisable(true);
+		this.txtResult.appendText("la parola inserita non corrisponde con la lunghezza prefissata\n");
+		return;
+	}
+	
+	/**
+	 * controlla che la parola esista nel database
+	 */
+	if(!m.existWord(parola)) {
+		this.btnTrovaGrado.setDisable(true);
+		this.txtResult.appendText(String.format("la parola %s non è presente nel DataBase\n", parola));
+		return;
+	}
+	
 
+	String result =m.displayNeighbours(parola).toString();
+	this.txtResult.appendText("\nI i vicini sono:\n" + result + "\n");
+	
+	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -125,7 +153,7 @@ public class DizionarioGraphController {
         assert txtWord != null : "fx:id=\"txtWords\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnGeneraGrafo != null : "fx:id=\"btnGeneraGrafo\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnTrovaVicini != null : "fx:id=\"btnTrovaVicini\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
-        assert btnTrovaGrafo != null : "fx:id=\"btnTrovaGrafo\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
+        assert btnTrovaGrado != null : "fx:id=\"btnTrovaGrado\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
 

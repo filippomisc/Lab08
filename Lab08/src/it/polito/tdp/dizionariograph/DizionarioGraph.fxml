@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="463.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.dizionariograph.DizionarioGraphController">
+<BorderPane prefHeight="573.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.dizionariograph.DizionarioGraphController">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
             <HBox spacing="20.0">
                <children>
@@ -20,9 +20,9 @@
                         <Insets left="20.0" top="5.0" />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="txtNumberOfCharacters" prefHeight="38.0" prefWidth="225.0">
+                  <TextField fx:id="txtNumberOfCharacters">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="58.0" />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -30,14 +30,14 @@
                   <Insets top="50.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="12.0" prefWidth="522.0" spacing="20.0">
+            <HBox layoutX="10.0" layoutY="10.0" spacing="20.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inserire una parola di cercare:" wrappingWidth="220.64306640625">
                      <HBox.margin>
                         <Insets left="20.0" top="5.0" />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="txtWord" prefHeight="38.0" prefWidth="210.0">
+                  <TextField fx:id="txtWord" disable="true">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -47,19 +47,22 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="144.0" prefHeight="3.0" prefWidth="522.0">
+            <HBox layoutX="10.0" layoutY="144.0">
                <children>
-                  <Button fx:id="btnGeneraGrafo" mnemonicParsing="false" onAction="#GeneraGrafo" text="Genera Grafo">
+                  <Button fx:id="btnGeneraGrafo" defaultButton="true" mnemonicParsing="false" onAction="#GeneraGrafo" text="Genera Grafo">
                      <HBox.margin>
-                        <Insets left="20.0" right="65.0" />
+                        <Insets left="20.0" right="85.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnTrovaVicini" mnemonicParsing="false" onAction="#TrovaVicini" text="Trova Vicini">
+                  <Button fx:id="btnTrovaVicini" disable="true" mnemonicParsing="false" onAction="#TrovaVicini" text="Trova Vicini">
                      <HBox.margin>
-                        <Insets right="65.0" />
+                        <Insets right="85.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnTrovaGrafo" mnemonicParsing="false" onAction="#TrovaGrafo" text="Trova Grafo" />
+                  <Button fx:id="btnTrovaGrado" disable="true" mnemonicParsing="false" onAction="#TrovaGrado" text="Trova Grado Maz.">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -67,7 +70,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="314.0" prefWidth="522.0">
                <children>
-                  <TextArea fx:id="txtResult" editable="false" prefHeight="285.0" prefWidth="579.0">
+                  <TextArea fx:id="txtResult" editable="false">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
@@ -78,7 +81,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="btnReset" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#Reset" text="Reset" BorderPane.alignment="CENTER_RIGHT">
+      <Button fx:id="btnReset" alignment="CENTER_RIGHT" disable="true" mnemonicParsing="false" onAction="#Reset" text="Reset" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
             <Insets bottom="10.0" right="20.0" top="10.0" />
          </BorderPane.margin>
